@@ -2,312 +2,615 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - 3D carousel</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>CodePen - Sunrise over still lake</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div id="drag-container">
-  <div id="spin-container">
-    <!-- Add your images (or video) here -->
-    <img src="https://images.pexels.com/photos/206395/pexels-photo-206395.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    <img src="https://images.pexels.com/photos/1391498/pexels-photo-1391498.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    <img src="https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    <img src="https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    <img src="https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    <img src="https://images.pexels.com/photos/1462636/pexels-photo-1462636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    
-    <!-- Example image with link -->
-    <a target="_blank" href="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg">
-      <img src="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
-    </a>
-
-    <!-- Example add video  -->
-    <video controls autoplay="autoplay" loop>
-      <source src="https://player.vimeo.com/external/322244668.sd.mp4?s=338c48ac2dfcb1d4c0689968b5baf94eee6ca0c1&profile_id=165&oauth2_token_id=57447761" type="video/mp4">
-    </video>
-
-    <!-- Text at center of ground -->
-    <p>NotRadio.in.th</p>
+<div class="landscape">
+  <div class="mountain"></div>
+  <div class="mountain mountain-2"></div>
+  <div class="mountain mountain-3"></div>
+  <div class="sun-container sun-container-1">
   </div>
-  <div id="ground"></div>
+  <div class="sun-container">
+    <div class="sun"></div>
+  </div>
+  <div class="cloud"></div>
+  <div class="cloud cloud-1"></div>
+  <div class="sun-container sun-container-reflection">
+    <div class="sun"></div>
+  </div>
+  <div class="light"></div>
+  <div class="light light-1"></div>
+  <div class="light light-2"></div>
+  <div class="light light-3"></div>
+  <div class="light light-4"></div>
+  <div class="light light-5"></div>
+  <div class="light light-6"></div>
+  <div class="light light-7"></div>
+  <div class="water"></div>
+  <div class="splash"></div>
+  <div class="splash delay-1"></div>
+  <div class="splash delay-2"></div>
+  <div class="splash splash-4 delay-2"></div>
+  <div class="splash splash-4 delay-3"></div>
+  <div class="splash splash-4 delay-4"></div>
+  <div class="splash splash-stone delay-3"></div>
+  <div class="splash splash-stone splash-4"></div>
+  <div class="splash splash-stone splash-5"></div>
+  <div class="lotus lotus-1"></div>
+  <div class="lotus lotus-2"></div>
+  <div class="lotus lotus-3"></div>
+  <div class="front">
+    <div class="stone"></div>
+    <div class="grass"></div>
+    <div class="grass grass-1"></div>
+    <div class="grass grass-2"></div>
+    <div class="reed"></div>
+    <div class="reed reed-1"></div>
+  </div>
 </div>
-
-<div id="music-container"></div>
-
-
-
-
-
-
-
-
-
-<!-- github corner (https://github.com/tholman/github-corners) -->
 <!-- partial -->
-  <script  src="./script.js"></script>
-
+  
 </body>
 </html>
 
+
 <style>
-* {
-    margin: 0;
-    padding: 0;
+
+:root {
+    --v1: #be91c6;
+    --v2: #8a65cc;
+    --v3: #5e30d9;
+    --transparentv3: #5e30d900;
+    --v4: #3b1895;
+    --s1: #fea798;
+    --s2: #ff846e;
+    --cloud: #fea798;
   }
   
-  html,
-  body {
-    height: 100%;
-    /* for touch screen */
-    touch-action: none; 
-  }
-  
-  body {
-    overflow: hidden;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    background: #111;
-    -webkit-perspective: 1000px;
-            perspective: 1000px;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-  }
-  
-  #drag-container, #spin-container {
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin: auto;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    -webkit-transform: rotateX(-10deg);
-            transform: rotateX(-10deg);
-  }
-  
-  #drag-container img, #drag-container video {
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
+  .landscape:after,
+  .landscape:before,
+  .landscape *,
+  .landscape *:after,
+  .landscape *:before {
     position: absolute;
+  }
+  
+  .front {
+    z-index: 1;
+    bottom: 0;
     left: 0;
-    top: 0;
+    right: 0;
+  }
+  
+  .landscape {
+    height: 100vh;
+    background-image: linear-gradient(var(--v1), var(--s1), var(--v1));
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .mountain {
+    border-radius: 180% 80% 0% 0%/60vmin 60vmin 0% 0%;
+    width: 40vmin;
+    height: 30vmin;
+    bottom: 50%;
+    left: -10vmin;
+    background: var(--s1);
+    background-image: linear-gradient(var(--v1), var(--v2) 30%, var(--v3));
+    box-shadow: inset -10px 0 10px -10px var(--s1);
+  }
+  .mountain:before {
+    content: "";
+    bottom: 0;
+    width: inherit;
+    height: inherit;
+    background: inherit;
+    border-radius: inherit;
+    transform-origin: bottom center;
+    transform: scaleX(1) scaleY(-0.6);
+    filter: blur(3px);
+  }
+  
+  .mountain-2 {
+    left: 5vmin;
+    height: 15vmin;
+    width: 40vmin;
+    box-shadow: inset -15px 0 10px -14px var(--s1);
+    border-radius: 120% 50% 0% 0%/25vmin 25vmin 0% 0%;
+    background-image: linear-gradient(var(--v3), var(--v4));
+  }
+  
+  .mountain-3 {
+    border-radius: 80% 0% 0 0/100% 100% 0 0;
+    right: -85vmin;
+    width: 100vmin;
+    left: auto;
+    height: 12vmin;
+    color: var(--v3);
+    background-image: linear-gradient(var(--s1), var(--v4));
+    box-shadow: inset 15px 0 10px -10px var(--s1);
+  }
+  
+  .mountain-3:after {
+    content: "";
+    border-radius: 60% 0 0 0/100% 0 0 0;
+    background: inherit;
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    right: 20%;
+  }
+  
+  .lotus {
+    width: 10vmin;
+    height: 5vmin;
+    background: conic-gradient(var(--v3) 0deg 40deg, var(--transparentv3) 50deg 70deg, var(--v3) 80deg);
+    border-radius: 50%;
+  }
+  
+  .lotus-1 {
+    bottom: 10vmin;
+    right: 5vmin;
+    width: 20vmin;
+  }
+  
+  .lotus-2 {
+    bottom: 20vmin;
+    right: 15vmin;
+    height: 3vmin;
+    transform: skew(-10deg);
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+  }
+  
+  .lotus-3 {
+    bottom: 10vmin;
+    right: 35vmin;
+    transform: rotate(180deg) skew(-20deg);
+    opacity: 0.8;
+    width: 15vmin;
+  }
+  
+  .cloud {
+    width: 80vmin;
+    height: 6vmin;
+    background: currentcolor;
+    color: var(--cloud);
+    top: 24vmin;
+    left: 20vmin;
+    border-radius: 50%;
+    box-shadow: 30vmin 0.5vmin 0 -1vmin currentcolor, -25vmin 0 0 -0.6vmin currentcolor;
+    opacity: 0.3;
+    transform: translate3d(-150vmin, 0, 0);
+    -webkit-animation: clouds 120s infinite;
+            animation: clouds 120s infinite;
+    -webkit-animation-delay: -10s;
+            animation-delay: -10s;
+  }
+  
+  @-webkit-keyframes clouds {
+    50% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(150vmin, 0, 0);
+    }
+  }
+  
+  @keyframes clouds {
+    50% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(150vmin, 0, 0);
+    }
+  }
+  .cloud-1 {
+    left: 60vmin;
+    top: 15vmin;
+    opacity: 0.2;
+    filter: blur(1px);
+    -webkit-animation-delay: 0;
+            animation-delay: 0;
+    -webkit-animation-duration: 100s;
+            animation-duration: 100s;
+  }
+  
+  .water {
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(#fea79855, var(--v2));
+    overflow: hidden;
+    box-shadow: inset 0 1px 4px -3px white;
+  }
+  
+  .stone {
+    bottom: -5vh;
+    left: 0;
+    height: 20vmin;
+    width: 40vmin;
+    background: var(--v4);
+    box-shadow: inset 0 0 20px -5px rgba(0, 0, 0, 0.2);
+    border-radius: 0% 200% 0 0/0% 200%;
+  }
+  
+  .stone:after {
+    content: "";
+    background: var(--v3);
     width: 100%;
     height: 100%;
-    line-height: 200px;
-    font-size: 50px;
-    text-align: center;
-    -webkit-box-shadow: 0 0 8px #fff;
-            box-shadow: 0 0 8px #fff;
-    -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+    right: -15%;
+    border-radius: inherit;
+    z-index: -1;
+    transform: scaleX(1.3) skew(10deg);
+    box-shadow: inset 0 0 20px -5px rgba(0, 0, 0, 0.4);
   }
   
-  #drag-container img:hover, #drag-container video:hover {
-    -webkit-box-shadow: 0 0 15px #fffd;
-            box-shadow: 0 0 15px #fffd;
-    -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0007);
+  .grass {
+    height: 40vmin;
+    width: 10vmin;
+    border-radius: 0 60% 0 0/0 100% 0 0;
+    bottom: 0;
+    border-right: 5px solid var(--v4);
+    box-shadow: 1px 0 0 var(--s1);
+    filter: drop-shadow(-0.5vmin 6vmin 0 var(--s2)) drop-shadow(-4.5vmin 10vmin 0 var(--v3));
   }
   
-  #drag-container p {
-    font-family: Serif;
-    position: absolute;
+  .grass-1 {
+    left: 14vmin;
+    bottom: -2vmin;
+    transform: scaleX(-1);
+    box-shadow: 2px 0 0 var(--v4);
+    border-color: var(--v3);
+    filter: drop-shadow(-1vmin 5vmin 0 var(--v3)) drop-shadow(-80vmin 5vmin 0 var(--v4));
+  }
+  
+  .grass-2 {
+    right: 0;
+    left: auto;
+    height: 20vmin;
+    bottom: -2vmin;
+    transform: scaleX(-1);
+  }
+  
+  .sun {
+    background: white;
+    border-radius: 50%;
+    width: 20vmin;
+    height: 20vmin;
+    left: calc(60% - 10vmin);
     top: 100%;
-    left: 50%;
-    -webkit-transform: translate(-50%,-50%) rotateX(90deg);
-            transform: translate(-50%,-50%) rotateX(90deg);
-    color: #fff;
+    transform: translate3d(0, 0, 0);
+    -webkit-animation: rise 20s infinite;
+            animation: rise 20s infinite;
+    box-shadow: 0 0 10px white;
   }
   
-  #ground {
-    width: 900px;
-    height: 900px;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    -webkit-transform: translate(-50%,-50%) rotateX(90deg);
-            transform: translate(-50%,-50%) rotateX(90deg);
-    background: -webkit-radial-gradient(center center, farthest-side , #9993, transparent);
+  .reed {
+    height: 40vmin;
+    width: 0.5vmin;
+    bottom: 0;
+    left: 10vmin;
+    color: var(--v4);
+    background: currentColor;
+    transform-origin: bottom center;
+    transform: rotate(4deg);
+    box-shadow: inset -1px 0 0 var(--s2), -6vmin 3vmin 0 0, 80vmin 0 0 0;
+    -webkit-animation: verticalise 20s infinite;
+            animation: verticalise 20s infinite;
   }
   
-  #music-container {
-    position: absolute;
+  .reed-1 {
+    color: var(--s2);
+    left: 15vmin;
+    height: 50vmin;
+    bottom: -5vmin;
+    transform: rotate(-2deg);
+    -webkit-animation: verticalise-1 20s infinite;
+            animation: verticalise-1 20s infinite;
+    box-shadow: inset -1px 0 0 var(--s1), 6vmin 13vmin 0 0 var(--s1), 80vmin 10vmin 0 0 var(--v3);
+  }
+  
+  .reed:after {
+    content: "";
+    width: 1.5vmin;
+    height: 10vmin;
+    background: currentcolor;
+    border-radius: 0.75vmin;
     top: 0;
+    left: -0.5vmin;
+    box-shadow: inherit;
+  }
+  
+  @-webkit-keyframes verticalise {
+    0%, 10% {
+      transform: rotate(4deg);
+    }
+    30%, 70% {
+      transform: rotate(0);
+    }
+  }
+  
+  @keyframes verticalise {
+    0%, 10% {
+      transform: rotate(4deg);
+    }
+    30%, 70% {
+      transform: rotate(0);
+    }
+  }
+  @-webkit-keyframes verticalise-1 {
+    0%, 10% {
+      transform: rotate(-2deg);
+    }
+    45%, 70% {
+      transform: rotate(0) translateY(-6vmin);
+    }
+  }
+  @keyframes verticalise-1 {
+    0%, 10% {
+      transform: rotate(-2deg);
+    }
+    45%, 70% {
+      transform: rotate(0) translateY(-6vmin);
+    }
+  }
+  @-webkit-keyframes rise {
+    100% {
+      transform: translate3d(0, -100vh, 20vmin);
+    }
+  }
+  @keyframes rise {
+    100% {
+      transform: translate3d(0, -100vh, 20vmin);
+    }
+  }
+  @-webkit-keyframes rise-reflection {
+    30% {
+      opacity: 0;
+      transform: translate3d(0, 5vmin, 0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, 80vmin, 0);
+    }
+  }
+  @keyframes rise-reflection {
+    30% {
+      opacity: 0;
+      transform: translate3d(0, 5vmin, 0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, 80vmin, 0);
+    }
+  }
+  .sun-container {
+    overflow: hidden;
+    width: 100%;
+    height: 50%;
+  }
+  
+  .sun-container-1:after {
+    content: "";
     left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 60% 100%, var(--s2), transparent);
+    -webkit-animation: fade 20s infinite;
+            animation: fade 20s infinite;
+    mix-blend-mode: color-burn;
   }
   
-  @-webkit-keyframes spin {
-    from{
-      -webkit-transform: rotateY(0deg);
-              transform: rotateY(0deg);
-    } to{
-      -webkit-transform: rotateY(360deg);
-              transform: rotateY(360deg);
+  @-webkit-keyframes fade {
+    10% {
+      opacity: 1;
+    }
+    30%, 70% {
+      opacity: 0;
     }
   }
   
-  @keyframes spin {
-    from{
-      -webkit-transform: rotateY(0deg);
-              transform: rotateY(0deg);
-    } to{
-      -webkit-transform: rotateY(360deg);
-              transform: rotateY(360deg);
+  @keyframes fade {
+    10% {
+      opacity: 1;
+    }
+    30%, 70% {
+      opacity: 0;
     }
   }
-  @-webkit-keyframes spinRevert {
-    from{
-      -webkit-transform: rotateY(360deg);
-              transform: rotateY(360deg);
-    } to{
-      -webkit-transform: rotateY(0deg);
-              transform: rotateY(0deg);
+  .sun-container-reflection {
+    top: 50%;
+    background: radial-gradient(circle at 60% 0%, var(--s2), transparent);
+  }
+  
+  .sun-container-reflection .sun {
+    background: linear-gradient(white, rgba(255, 255, 255, 0));
+    box-shadow: none;
+    filter: blur(5px);
+    opacity: 1;
+    top: 0;
+    transform: translate3d(0, -20vmin, 0);
+    -webkit-animation-name: rise-reflection;
+            animation-name: rise-reflection;
+  }
+  
+  .light {
+    height: 0.5vmin;
+    width: 20vmin;
+    background: white;
+    left: 20%;
+    right: 0;
+    margin: auto;
+    top: calc(50% + 1vmin);
+    -webkit-animation: light 20s infinite;
+            animation: light 20s infinite;
+    opacity: 0;
+    transform: scaleX(0.1) translate3d(0%, 0, 0);
+    border-radius: 0.25vh;
+    filter: blur(1px);
+  }
+  
+  @-webkit-keyframes light {
+    5% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    10% {
+      opacity: 0.6;
+      transform: scaleX(1) translate3d(5%, 0, 0);
+    }
+    15% {
+      opacity: 0.6;
+      transform: scaleX(1) translate3d(-5%, 0, 0);
+    }
+    20% {
+      opacity: 0;
+      transform: scaleX(0.1) translate3d(0, 0, 0);
     }
   }
-  @keyframes spinRevert {
-    from{
-      -webkit-transform: rotateY(360deg);
-              transform: rotateY(360deg);
-    } to{
-      -webkit-transform: rotateY(0deg);
-              transform: rotateY(0deg);
+  @keyframes light {
+    5% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    10% {
+      opacity: 0.6;
+      transform: scaleX(1) translate3d(5%, 0, 0);
+    }
+    15% {
+      opacity: 0.6;
+      transform: scaleX(1) translate3d(-5%, 0, 0);
+    }
+    20% {
+      opacity: 0;
+      transform: scaleX(0.1) translate3d(0, 0, 0);
     }
   }
-
+  .light-1 {
+    top: calc(50% + 2vmin);
+    -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+  }
+  
+  .light-2 {
+    top: calc(50% + 3vmin);
+    width: 18vmin;
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+  }
+  
+  .light-3 {
+    top: calc(50% + 4vmin);
+    width: 18vmin;
+    -webkit-animation-delay: 1.5s;
+            animation-delay: 1.5s;
+  }
+  
+  .light-4 {
+    top: calc(50% + 5vmin);
+    width: 16vmin;
+    -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+  }
+  
+  .light-5 {
+    top: calc(50% + 8vmin);
+    width: 14vmin;
+    -webkit-animation-delay: 2.5s;
+            animation-delay: 2.5s;
+  }
+  
+  .light-6 {
+    top: calc(50% + 9vmin);
+    width: 10vmin;
+    -webkit-animation-delay: 3s;
+            animation-delay: 3s;
+  }
+  
+  .light-7 {
+    top: calc(50% + 7vmin);
+    width: 12vmin;
+    -webkit-animation-delay: 3.5s;
+            animation-delay: 3.5s;
+  }
+  
+  .splash {
+    width: 8vmin;
+    height: 3vmin;
+    border: 2px solid var(--s1);
+    box-shadow: 0 0 2px var(--s1);
+    border-radius: 50%;
+    bottom: 5vmin;
+    left: 70%;
+    -webkit-animation: splash 9s infinite;
+            animation: splash 9s infinite;
+    transform: scale(0);
+  }
+  
+  .splash-stone {
+    bottom: 15vh;
+    left: -3vmin;
+    height: 10vmin;
+    width: 30vmin;
+  }
+  
+  .splash-4 {
+    bottom: 5vmin;
+    left: auto;
+    bottom: 15vmin;
+    right: -2vmin;
+  }
+  
+  @-webkit-keyframes splash {
+    50%, 100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes splash {
+    50%, 100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+  .delay-1 {
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+  }
+  
+  .delay-2 {
+    -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+  }
+  
+  .delay-3 {
+    -webkit-animation-delay: 3s;
+            animation-delay: 3s;
+  }
+  
+  .delay-4 {
+    -webkit-animation-delay: 4s;
+            animation-delay: 4s;
+  }
+  
+  .delay-5 {
+    -webkit-animation-delay: 5s;
+            animation-delay: 5s;
+  }
+  
+  .delay-6 {
+    -webkit-animation-delay: 6s;
+            animation-delay: 6s;
+  }
 </style>
-
-  
-<script language="javascript"> 
-
-  // Author: Hoang Tran (https://www.facebook.com/profile.php?id=100004848287494)
-// Github verson (1 file .html): https://github.com/HoangTran0410/3DCarousel/blob/master/index.html
-
-
-// You can change global variables here:
-var radius = 240; // how big of the radius
-var autoRotate = true; // auto rotate or not
-var rotateSpeed = -60; // unit: seconds/360 degrees
-var imgWidth = 120; // width of images (unit: px)
-var imgHeight = 170; // height of images (unit: px)
-
-// Link of background music - set 'null' if you dont want to play background music
-var bgMusicURL = 'https://api.soundcloud.com/tracks/143041228/stream?client_id=587aa2d384f7333a886010d5f52f302a';
-var bgMusicControls = true; // Show UI music control
-
-/*
-     NOTE:
-       + imgWidth, imgHeight will work for video
-       + if imgWidth, imgHeight too small, play/pause button in <video> will be hidden
-       + Music link are taken from: https://hoangtran0410.github.io/Visualyze-design-your-own-/?theme=HauMaster&playlist=1&song=1&background=28
-       + Custom from code in tiktok video  https://www.facebook.com/J2TEAM.ManhTuan/videos/1353367338135935/
-*/
-
-
-// ===================== start =======================
-// animation start after 1000 miliseconds
-setTimeout(init, 1000);
-
-var odrag = document.getElementById('drag-container');
-var ospin = document.getElementById('spin-container');
-var aImg = ospin.getElementsByTagName('img');
-var aVid = ospin.getElementsByTagName('video');
-var aEle = [...aImg, ...aVid]; // combine 2 arrays
-
-// Size of images
-ospin.style.width = imgWidth + "px";
-ospin.style.height = imgHeight + "px";
-
-// Size of ground - depend on radius
-var ground = document.getElementById('ground');
-ground.style.width = radius * 3 + "px";
-ground.style.height = radius * 3 + "px";
-
-function init(delayTime) {
-  for (var i = 0; i < aEle.length; i++) {
-    aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";
-    aEle[i].style.transition = "transform 1s";
-    aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";
-  }
-}
-
-function applyTranform(obj) {
-  // Constrain the angle of camera (between 0 and 180)
-  if(tY > 180) tY = 180;
-  if(tY < 0) tY = 0;
-
-  // Apply the angle
-  obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";
-}
-
-function playSpin(yes) {
-  ospin.style.animationPlayState = (yes?'running':'paused');
-}
-
-var sX, sY, nX, nY, desX = 0,
-    desY = 0,
-    tX = 0,
-    tY = 10;
-
-// auto spin
-if (autoRotate) {
-  var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
-  ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
-}
-
-
-
-// setup events
-document.onpointerdown = function (e) {
-  clearInterval(odrag.timer);
-  e = e || window.event;
-  var sX = e.clientX,
-      sY = e.clientY;
-
-  this.onpointermove = function (e) {
-    e = e || window.event;
-    var nX = e.clientX,
-        nY = e.clientY;
-    desX = nX - sX;
-    desY = nY - sY;
-    tX += desX * 0.1;
-    tY += desY * 0.1;
-    applyTranform(odrag);
-    sX = nX;
-    sY = nY;
-  };
-
-  this.onpointerup = function (e) {
-    odrag.timer = setInterval(function () {
-      desX *= 0.95;
-      desY *= 0.95;
-      tX += desX * 0.1;
-      tY += desY * 0.1;
-      applyTranform(odrag);
-      playSpin(false);
-      if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {
-        clearInterval(odrag.timer);
-        playSpin(true);
-      }
-    }, 17);
-    this.onpointermove = this.onpointerup = null;
-  };
-
-  return false;
-};
-
-document.onmousewheel = function(e) {
-  e = e || window.event;
-  var d = e.wheelDelta / 20 || -e.detail;
-  radius += d;
-  init(1);
-};
-</script>

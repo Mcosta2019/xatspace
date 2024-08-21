@@ -23,10 +23,19 @@ a {
     color: var(--Blue); /* Ajuste a cor se necessário */
     text-decoration: none; /* Ajuste a decoração se necessário */
 }
-h1 {
+/* Estilo para o h1 com cor azul e borda preta */
+    h1 {
     font-family: 'Matemasie', sans-serif !important;
-    font-size: 3rem; /* Ajuste o tamanho se necessário */
-    color: #000; /* Ajuste a cor se necessário */
+    font-size: 2rem; /* Ajuste o tamanho se necessário */
+    color: #197; /* Ajuste a cor se necessário */
+     text-shadow: 
+            -3px -3px 0 #000,  
+            3px -3px 0 #000, 
+            -3px 3px 0 #000, 
+            3px 3px 0 #000; /* Cria a borda preta ao redor do texto */
+      padding: 0px;
+        display: inline-block;
+        margin-top: 0px;
 }
 body {
   /*padding:0px;

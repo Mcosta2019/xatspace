@@ -1,3 +1,4 @@
+
 var polygons = document.querySelectorAll("#hexs polygon");
 var restartPolygon = document.getElementById("restartPolygon");
 var restartText = document.getElementById("restartText");

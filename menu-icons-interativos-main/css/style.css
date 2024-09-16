@@ -95,3 +95,58 @@
   .menu.active .menuToggle {
     transform: rotate(315deg);
   }
+
+/* Ocultar o contêiner do jogo por padrão */
+#gameContainer.hidden {
+  display: none;
+}
+
+/* Game styles */
+#gameContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  display: none; /* Hidden by default */
+}
+
+#game {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#gameButton {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#gameButton:hover {
+  background-color: #0056b3;
+}
+
+#closeGame {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #ff2972;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#closeGame:hover {
+  background-color: #e02d6d;
+}

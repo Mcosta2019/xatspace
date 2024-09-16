@@ -34,7 +34,7 @@
     <li style="--i: 4; --clr: #00b0fe">
       <a href="#camera"><ion-icon name="camera-outline"></ion-icon></a>
     </li>
-    <li style="--i: 5; --clr: #fea600">
+    <li id="gameIcon" style="--i: 5; --clr: #fea600">
       <a href="#game"><ion-icon name="game-controller-outline"></ion-icon></a>
     </li>
     <li style="--i: 6; --clr: #a529ff">
@@ -44,7 +44,18 @@
       <a href="https://www.facebook.com/mafcostaa" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
     </li>
   </ul>
-
+  
+<!-- Game container -->
+  <div id="gameContainer">
+    <div id="game">
+      <h1>Mini Jogo</h1>
+      <p>Clique no botão quantas vezes puder!</p>
+      <button id="gameButton">Clique em mim!</button>
+      <p>Score: <span id="score">0</span></p>
+      <button id="closeGame">Fechar jogo</button>
+    </div>
+  </div>
+  
   <!-- Audio elements for sound effects -->
   <audio id="toggleSound">
     <source src="audio/close.mp3" type="audio/mpeg">
@@ -78,22 +89,58 @@
       // Tocar a música de fundo ao carregar a página
       backgroundMusic.play();
       
+      // Menu and game elements
       let menuToggle = document.querySelector(".menuToggle");
       let menu = document.querySelector(".menu");
-
-      menuToggle.onclick = function () {
+      let gameIcon = document.getElementById('gameIcon');
+      let gameContainer = document.getElementById('gameContainer');
+      let closeGameButton = document.getElementById('closeGame');
+      let gameButton = document.getElementById('gameButton');
+      let scoreDisplay = document.getElementById('score');
+      // Toggle menu
+      menuToggle.onclick = function() {
         menu.classList.toggle("active");
-        toggleSound.currentTime = 0; // Reset the audio to start from the beginning
+        toggleSound.currentTime = 0;
         toggleSound.play();
         if (menu.classList.contains("active")) {
-          openSound.currentTime = 0; // Reset the audio to start from the beginning
+          openSound.currentTime = 0;
           openSound.play();
         }
       };
-
+      // Hover sound effect
       $("a").mouseenter(function() {
-        hoverSound.currentTime = 0; // Reset the audio to start from the beginning
+        hoverSound.currentTime = 0;
         hoverSound.play();
+      });
+      // Open game
+      gameIcon.addEventListener('click', () => {
+        menu.style.display = 'none'; // Hide menu
+        gameContainer.style.display = 'flex'; // Show game
+      });
+      // Close game
+      closeGameButton.addEventListener('click', () => {
+        gameContainer.style.display = 'none'; // Hide game
+        menu.style.display = 'flex'; // Show menu
+      });
+      // Game variables
+      let score = 0;
+      // Update button's position randomly
+      function updateButtonPosition() {
+        const buttonWidth = gameButton.offsetWidth;
+        const buttonHeight = gameButton.offsetHeight;
+        const containerWidth = gameContainer.clientWidth;
+        const containerHeight = gameContainer.clientHeight;
+        const x = Math.random() * (containerWidth - buttonWidth);
+        const y = Math.random() * (containerHeight - buttonHeight);
+        gameButton.style.position = 'absolute';
+        gameButton.style.left = `${x}px`;
+        gameButton.style.top = `${y}px`;
+      }
+      // Handle button clicks
+      gameButton.addEventListener('click', () => {
+        score++;
+        scoreDisplay.textContent = score;
+        updateButtonPosition();
       });
     });
   </script>

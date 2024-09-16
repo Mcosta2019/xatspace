@@ -73,8 +73,11 @@
       var toggleSound = $("#toggleSound")[0];
       var openSound = $("#openSound")[0];
       var hoverSound = $("#hoverSound")[0];
-      var backgroundMusic = $("#backgroundMusic")[0]; // Adicionando a referência ao áudio de fundo
+      var backgroundMusic = $("#backgroundMusic")[0]; // áudio de fundo
 
+      // Tocar a música de fundo ao carregar a página
+      backgroundMusic.play();
+      
       let menuToggle = document.querySelector(".menuToggle");
       let menu = document.querySelector(".menu");
 

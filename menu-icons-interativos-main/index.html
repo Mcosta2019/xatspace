@@ -3,58 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Miguel Costa</title>
+  <title>Miguel ID(1491923361(</title>
   <!-- Link to the external CSS file for styling -->
   <link rel="stylesheet" href="css/style.css" />
   <!-- jQuery library for DOM manipulation -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Link to the external JavaScript file for additional scripts -->
-  <script src="js/scripts.js"></script>
+  <script src="scripts.js"></script>
 </head>
+
 <body>
 
- <!-- Icon menu container -->
+  <!-- Icon menu container -->
   <ul class="menu">
     <!-- Menu toggle button -->
-    <div class="menuToggle"><ion-icon name="add-outline"></ion-icon></div>
+    <div class="menuToggle">
+      <ion-icon name="add-outline"></ion-icon>
+    </div>
     <!-- Menu items with icons and colors -->
     <li style="--i: 0; --clr: #ff2972">
-      <a href="https://www.youtube.com/@TraducaoDeGames" target="_blank"><ion-icon name="logo-youtube"></ion-icon></ion-icon></a>
+      <a href="#youtube">
+        <ion-icon name="logo-youtube"></ion-icon>
+        </ion-icon>
+      </a>
     </li>
-    <li style="--i: 1; --clr: #fee800">
-      <a href="#settings" <ion-icon name="settings-outline"></ion-icon></a>
+    <li id="settingsIcon" style="--i: 1; --clr: #fee800">
+      <a href="#settings">
+        <ion-icon name="settings-outline"></ion-icon>
+      </a>
     </li>
     <li id="homeIcon" style="--i: 2; --clr: #04fc43">
-      <a href="#home"><ion-icon name="home-outline"></ion-icon></ion-icon></a>
+      <a href="#home">
+        <ion-icon name="home-outline"></ion-icon>
+        </ion-icon>
+      </a>
     </li>
     <li style="--i: 3; --clr: #fe00f1">
-      <a href="https://www.instagram.com/" target="_blank"><ion-icon name="logo-instagram"></ion-icon></ion-icon></a>
+      <a href="#nstagram">
+        <ion-icon name="logo-instagram"></ion-icon>
+        </ion-icon>
+      </a>
     </li>
     <li style="--i: 4; --clr: #00b0fe">
-      <a href="#camera"><ion-icon name="camera-outline"></ion-icon></a>
+      <a href="#camera">
+        <ion-icon name="camera-outline"></ion-icon>
+      </a>
     </li>
     <li id="gameIcon" style="--i: 5; --clr: #fea600">
-      <a href="#game"><ion-icon name="game-controller-outline"></ion-icon></a>
+      <a href="#game">
+        <ion-icon name="game-controller-outline"></ion-icon>
+      </a>
     </li>
     <li style="--i: 6; --clr: #a529ff">
-      <a href="MC/index.html"><ion-icon name="person-outline"></ion-icon></a>
+      <a href="#person">
+        <ion-icon name="person-outline"></ion-icon>
+      </a>
     </li>
     <li style="--i: 7; --clr: #01bdab">
-      <a href="https://www.facebook.com/mafcostaa" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="#facebook" target="_blank">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </a>
     </li>
   </ul>
-  
-<!-- Game container -->
+
+  <!-- Game container -->
   <div id="gameContainer">
     <div id="game">
       <h1>Mini Jogo</h1>
       <p>Clique no botão quantas vezes puder!</p>
       <button id="gameButton">Clique em mim!</button>
-      <p>Pontos: <span id="score">0</span></p>
+      <p>Score: <span id="score">0</span></p>
       <button id="closeGame">Fechar jogo</button>
     </div>
   </div>
-  
+
   <!-- Audio elements for sound effects -->
   <audio id="toggleSound">
     <source src="audio/close.mp3" type="audio/mpeg">
@@ -72,10 +94,10 @@
   </audio>
 
   <audio id="backgroundMusic" autoplay loop>
-  <source src="audio/Weightless.mp3" type="audio/mpeg">
-  <source src="audio/Weightless.ogg" type="audio/ogg">
-  Your browser does not support the audio element.
-</audio>
+    <source src="audio/Weightless.mp3" type="audio/mpeg">
+    <source src="audio/Weightless.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
 
   <!-- JavaScript code to handle menu toggle and hover sounds -->
   <script>
@@ -84,10 +106,8 @@
       var openSound = $("#openSound")[0];
       var hoverSound = $("#hoverSound")[0];
       var backgroundMusic = $("#backgroundMusic")[0]; // áudio de fundo
-
       // Tocar a música de fundo ao carregar a página
       backgroundMusic.play();
-      
       // Menu and game elements
       let menuToggle = document.querySelector(".menuToggle");
       let menu = document.querySelector(".menu");
@@ -97,26 +117,28 @@
       let closeGameButton = document.getElementById('closeGame');
       let gameButton = document.getElementById('gameButton');
       let scoreDisplay = document.getElementById('score');
-      // Toggle menu
-      menuToggle.onclick = function() {
-        menu.classList.toggle("active");
-        toggleSound.currentTime = 0;
-        toggleSound.play();
-        if (menu.classList.contains("active")) {
-          openSound.currentTime = 0;
-          openSound.play();
-        }
-      }
 
-      // Handle menu toggle button click
-      menuToggle.onclick = toggleMenu;
+     // Toggle menu
+  function toggleMenu() {
+    menu.classList.toggle("active");
+    toggleSound.currentTime = 0;
+    toggleSound.play();
+    if (menu.classList.contains("active")) {
+      openSound.currentTime = 0;
+      openSound.play();
+    }
+  }
 
-     // Handle settings icon click
-     homeIcon.onclick = function() {
+  // Handle menu toggle button click
+  menuToggle.onclick = toggleMenu;
+
+  // Handle settings icon click
+  homeIcon.onclick = function() {
     if (menu.classList.contains("active")) {
       toggleMenu(); // Close menu when settings icon is clicked
     }
   };
+      
       // Hover sound effect
       $("a").mouseenter(function() {
         hoverSound.currentTime = 0;
@@ -132,6 +154,7 @@
         gameContainer.style.display = 'none'; // Hide game
         menu.style.display = 'flex'; // Show menu
       });
+      
       // Game variables
       let score = 0;
       // Update button's position randomly
@@ -156,14 +179,8 @@
   </script>
 
   <!-- Ionicons for menu icons -->
-  <script
-    type="module"
-    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-  ></script>
-  <script
-    nomodule
-    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-  ></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>

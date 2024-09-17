@@ -21,12 +21,11 @@
     <li style="--i: 0; --clr: #ff2972">
       <a href="https://www.youtube.com/@TraducaoDeGames" target="_blank"><ion-icon name="logo-youtube"></ion-icon></ion-icon></a>
     </li>
-    <li id="settingsIcon" style="--i: 1; --clr: #fee800">
-      <a href="#settings">
-        <ion-icon name="settings-outline"></ion-icon></a>
+    <li style="--i: 1; --clr: #fee800">
+      <a href="#settings" target="_blank"><ion-icon name="settings-outline"></ion-icon></a>
     </li>
-    <li style="--i: 2; --clr: #04fc43">
-      <a href="MC/index.html" target="_blank"><ion-icon name="home-outline"></ion-icon></ion-icon></a>
+    <li id="homeIcon" style="--i: 2; --clr: #04fc43">
+      <a href="#home" target="_blank"><ion-icon name="home-outline"></ion-icon></ion-icon></a>
     </li>
     <li style="--i: 3; --clr: #fe00f1">
       <a href="https://www.instagram.com/" target="_blank"><ion-icon name="logo-instagram"></ion-icon></ion-icon></a>
@@ -38,7 +37,7 @@
       <a href="#game"><ion-icon name="game-controller-outline"></ion-icon></a>
     </li>
     <li style="--i: 6; --clr: #a529ff">
-      <a href="#person"><ion-icon name="person-outline"></ion-icon></a>
+      <a href="MC/index.html"><ion-icon name="person-outline"></ion-icon></a>
     </li>
     <li style="--i: 7; --clr: #01bdab">
       <a href="https://www.facebook.com/mafcostaa" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
@@ -92,6 +91,7 @@
       // Menu and game elements
       let menuToggle = document.querySelector(".menuToggle");
       let menu = document.querySelector(".menu");
+      let homeIcon = document.getElementById('homeIcon');
       let gameIcon = document.getElementById('gameIcon');
       let gameContainer = document.getElementById('gameContainer');
       let closeGameButton = document.getElementById('closeGame');
@@ -106,7 +106,17 @@
           openSound.currentTime = 0;
           openSound.play();
         }
-      };
+      }
+
+      // Handle menu toggle button click
+      menuToggle.onclick = toggleMenu;
+
+     // Handle settings icon click
+     homeIcon.onclick = function() {
+    if (menu.classList.contains("active")) {
+      toggleMenu(); // Close menu when settings icon is clicked
+    }
+  };
       // Hover sound effect
       $("a").mouseenter(function() {
         hoverSound.currentTime = 0;

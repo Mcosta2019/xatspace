@@ -140,6 +140,113 @@
       transform: rotate(315deg);
     }
 
+    /* Estilos do painel de configurações */
+    #settingsPanel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 300;
+      padding: 20px;
+    }
+
+    #settingsHeader {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .settingsOption {
+      margin-bottom: 15px;
+    }
+
+    .settingsOption label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .settingsOption input[type="range"] {
+      width: 100%;
+    }
+
+    #resetScore {
+      width: 100%;
+      padding: 10px;
+      background-color: #ff2972;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #resetScore:hover {
+      background-color: #e02d6d;
+    }
+
+    /* Estilos do chatframe */
+    #chatFrame {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 300;
+      padding: 20px;
+    }
+
+    #chatHeader {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    #chatMessages {
+      height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fff;
+      margin-bottom: 15px;
+    }
+
+    #chatInput {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    #sendButton {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #sendButton:hover {
+      background-color: #0056b3;
+    }
+
     /* Estilos do jogo */
     #gameContainer {
       position: fixed;
@@ -206,6 +313,28 @@
     #closeGame:hover {
       background-color: #e02d6d;
     }
+
+    /* Estilos do controle de música */
+    #musicControl {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #musicControl button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: #333;
+    }
   </style>
 </head>
 <body>
@@ -258,6 +387,31 @@
     </li>
   </ul>
 
+  <!-- Painel de Configurações -->
+  <div id="settingsPanel">
+    <div id="settingsHeader">Configurações</div>
+    <div class="settingsOption">
+      <label for="theme">Tema:</label>
+      <select id="theme">
+        <option value="dark">Escuro</option>
+        <option value="light">Claro</option>
+      </select>
+    </div>
+    <div class="settingsOption">
+      <label for="volume">Volume:</label>
+      <input type="range" id="volume" min="0" max="1" step="0.1" value="1" />
+    </div>
+    <button id="resetScore">Redefinir Pontuação</button>
+  </div>
+
+  <!-- Chatframe -->
+  <div id="chatFrame">
+    <div id="chatHeader">Chat</div>
+    <div id="chatMessages"></div>
+    <input type="text" id="chatInput" placeholder="Digite uma mensagem..." />
+    <button id="sendButton">Enviar</button>
+  </div>
+
   <!-- Game container -->
   <div id="gameContainer">
     <div id="game">
@@ -267,6 +421,12 @@
       <div id="target"></div>
       <button id="closeGame">Fechar jogo</button>
     </div>
+  </div>
+
+  <!-- Controle de música -->
+  <div id="musicControl">
+    <button id="playPauseButton">⏯️</button>
+    <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="1" />
   </div>
 
   <!-- Audio elements for sound effects -->
@@ -286,12 +446,18 @@
   </audio>
 
   <audio id="clickSound">
-    <source src="audio/click.mp3" type="audio/mpeg">
+    <source src="audio/open.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
   </audio>
 
   <audio id="gameOverSound">
     <source src="audio/game-over.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <!-- Música de fundo -->
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="audio/Weightless.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
   </audio>
 
@@ -304,16 +470,51 @@
       var hoverSound = $("#hoverSound")[0];
       var clickSound = document.getElementById('clickSound');
       var gameOverSound = document.getElementById('gameOverSound');
+      var backgroundMusic = document.getElementById('backgroundMusic');
+
+      // Controle de música
+      const playPauseButton = document.getElementById('playPauseButton');
+      const musicVolume = document.getElementById('musicVolume');
+
+      // Play/Pause música de fundo
+      playPauseButton.addEventListener('click', () => {
+        if (backgroundMusic.paused) {
+          backgroundMusic.play();
+          playPauseButton.textContent = '⏸️';
+        } else {
+          backgroundMusic.pause();
+          playPauseButton.textContent = '⏯️';
+        }
+      });
+
+      // Ajustar volume da música de fundo
+      musicVolume.addEventListener('input', () => {
+        backgroundMusic.volume = musicVolume.value;
+      });
 
       // Menu and game elements
       let menuToggle = document.querySelector(".menuToggle");
       let menu = document.querySelector(".menu");
+      let homeIcon = document.getElementById('homeIcon');
+      let settingsIcon = document.getElementById('settingsIcon');
       let gameIcon = document.getElementById('gameIcon');
       let gameContainer = document.getElementById('gameContainer');
       let closeGameButton = document.getElementById('closeGame');
       let target = document.getElementById('target');
       let timerDisplay = document.getElementById('timer');
       let scoreDisplay = document.getElementById('score');
+
+      // Painel de configurações
+      let settingsPanel = document.getElementById('settingsPanel');
+      let themeSelect = document.getElementById('theme');
+      let volumeSlider = document.getElementById('volume');
+      let resetScoreButton = document.getElementById('resetScore');
+
+      // Chatframe elements
+      let chatFrame = document.getElementById('chatFrame');
+      let chatMessages = document.getElementById('chatMessages');
+      let chatInput = document.getElementById('chatInput');
+      let sendButton = document.getElementById('sendButton');
 
       // Variáveis do jogo
       let score = 0;
@@ -335,12 +536,71 @@
       // Abrir/fechar o menu ao clicar no botão
       menuToggle.onclick = toggleMenu;
 
-      // Fechar o menu ao clicar no ícone de casa
-      homeIcon.onclick = function() {
-        if (menu.classList.contains("active")) {
-          toggleMenu();
-        }
+      // Abrir o painel de configurações ao clicar no ícone de configurações
+      settingsIcon.onclick = function() {
+        settingsPanel.style.display = 'block';
       };
+
+      // Fechar o painel de configurações ao clicar fora dele
+      document.addEventListener('click', (event) => {
+        if (!settingsPanel.contains(event.target) && !settingsIcon.contains(event.target)) {
+          settingsPanel.style.display = 'none';
+        }
+      });
+
+      // Alterar tema
+      themeSelect.addEventListener('change', () => {
+        const theme = themeSelect.value;
+        document.body.className = theme;
+      });
+
+      // Ajustar volume dos efeitos sonoros
+      volumeSlider.addEventListener('input', () => {
+        const volume = volumeSlider.value;
+        toggleSound.volume = volume;
+        openSound.volume = volume;
+        hoverSound.volume = volume;
+        clickSound.volume = volume;
+        gameOverSound.volume = volume;
+      });
+
+      // Redefinir pontuação
+      resetScoreButton.addEventListener('click', () => {
+        score = 0;
+        scoreDisplay.textContent = `Pontos: ${score}`;
+        alert('Pontuação redefinida!');
+      });
+
+      // Abrir o chatframe ao clicar no ícone de casa
+      homeIcon.onclick = function() {
+        chatFrame.style.display = 'block';
+      };
+
+      // Fechar o chatframe ao clicar fora dele
+      document.addEventListener('click', (event) => {
+        if (!chatFrame.contains(event.target) && !homeIcon.contains(event.target)) {
+          chatFrame.style.display = 'none';
+        }
+      });
+
+      // Enviar mensagem no chat
+      sendButton.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+          const messageElement = document.createElement('div');
+          messageElement.textContent = `Você: ${message}`;
+          chatMessages.appendChild(messageElement);
+          chatInput.value = '';
+          chatMessages.scrollTop = chatMessages.scrollHeight; // Rolagem automática
+        }
+      });
+
+      // Enviar mensagem ao pressionar Enter
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendButton.click();
+        }
+      });
 
       // Hover sound effect
       $("a").mouseenter(function() {

@@ -1,19 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Miguel ID(1491923361(</title>
+  <title>Miguel ID(1491923361)</title>
   <!-- Link to the external CSS file for styling -->
   <link rel="stylesheet" href="css/style.css" />
   <!-- jQuery library for DOM manipulation -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Link to the external JavaScript file for additional scripts -->
   <script src="scripts.js"></script>
+  <style>
+    /* Estilos para o novo jogo */
+    #gameContainer {
+      display: none;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    #target {
+      width: 100px;
+      height: 100px;
+      background-color: #ff2972;
+      border-radius: 50%;
+      position: absolute;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #timer, #score {
+      font-size: 24px;
+      margin: 20px;
+      color: white;
+    }
+
+    #gameOver {
+      display: none;
+      font-size: 32px;
+      color: #04fc43;
+    }
+
+    #closeGame {
+      background-color: #00b0fe;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    #closeGame:hover {
+      background-color: #0099cc;
+    }
+  </style>
 </head>
-
 <body>
-
   <!-- Icon menu container -->
   <ul class="menu">
     <!-- Menu toggle button -->
@@ -22,45 +74,42 @@
     </div>
     <!-- Menu items with icons and colors -->
     <li style="--i: 0; --clr: #ff2972">
-      <a href="https://www.youtube.com/@TraducaoDeGames" target="_blank">
+      <a href="https://www.youtube.com/@TraducaoDeGames" target="_blank" aria-label="YouTube">
         <ion-icon name="logo-youtube"></ion-icon>
-        </ion-icon>
       </a>
     </li>
     <li id="settingsIcon" style="--i: 1; --clr: #fee800">
-      <a href="#settings">
+      <a href="#settings" aria-label="Settings">
         <ion-icon name="settings-outline"></ion-icon>
       </a>
     </li>
     <li id="homeIcon" style="--i: 2; --clr: #04fc43">
-      <a href="#home">
+      <a href="#home" aria-label="Home">
         <ion-icon name="home-outline"></ion-icon>
-        </ion-icon>
       </a>
     </li>
     <li style="--i: 3; --clr: #fe00f1">
-      <a href="https://www.instagram.com/" target="_blank">
+      <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
         <ion-icon name="logo-instagram"></ion-icon>
-        </ion-icon>
       </a>
     </li>
     <li style="--i: 4; --clr: #00b0fe">
-      <a href="#camera">
+      <a href="#camera" aria-label="Camera">
         <ion-icon name="camera-outline"></ion-icon>
       </a>
     </li>
     <li id="gameIcon" style="--i: 5; --clr: #fea600">
-      <a href="#game">
+      <a href="#game" aria-label="Game">
         <ion-icon name="game-controller-outline"></ion-icon>
       </a>
     </li>
     <li style="--i: 6; --clr: #a529ff">
-      <a href="MC/index.html">
+      <a href="MC/index.html" aria-label="Profile">
         <ion-icon name="person-outline"></ion-icon>
       </a>
     </li>
     <li style="--i: 7; --clr: #01bdab">
-      <a href="https://www.facebook.com/mafcostaa" target="_blank">
+      <a href="https://www.facebook.com/mafcostaa" target="_blank" aria-label="Facebook">
         <ion-icon name="logo-facebook"></ion-icon>
       </a>
     </li>
@@ -68,13 +117,16 @@
 
   <!-- Game container -->
   <div id="gameContainer">
-    <div id="game">
-      <h1>Mini Jogo</h1>
-      <p>Clique no botão quantas vezes puder!</p>
-      <button id="gameButton">Clique em mim!</button>
-      <p>Pontos: <span id="score">0</span></p>
-      <button id="closeGame">Fechar jogo</button>
+    <h1>Clique Rápido no Alvo!</h1>
+    <p id="timer">Tempo restante: 30s</p>
+    <p id="score">Pontos: 0</p>
+    <div id="target"></div>
+    <div id="gameOver">
+      <p>Fim de jogo!</p>
+      <p>Sua pontuação: <span id="finalScore">0</span></p>
+      <button id="restartButton">Jogar novamente</button>
     </div>
+    <button id="closeGame">Fechar jogo</button>
   </div>
 
   <!-- Audio elements for sound effects -->
@@ -93,87 +145,117 @@
     <source src="audio/beep.ogg" type="audio/ogg">
   </audio>
 
-  <audio id="backgroundMusic" autoplay loop>
-    <source src="audio/Weightless.mp3" type="audio/mpeg">
-    <source src="audio/Weightless.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
+  <audio id="clickSound">
+    <source src="audio/click.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
   </audio>
 
-  <!-- JavaScript code to handle menu toggle and hover sounds -->
+  <audio id="gameOverSound">
+    <source src="audio/game-over.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <!-- JavaScript code -->
   <script>
     $(document).ready(function() {
+      // Elementos do menu e áudios
       var toggleSound = $("#toggleSound")[0];
       var openSound = $("#openSound")[0];
       var hoverSound = $("#hoverSound")[0];
-      var backgroundMusic = $("#backgroundMusic")[0]; // áudio de fundo
-      // Tocar a música de fundo ao carregar a página
-      backgroundMusic.play();
+      var clickSound = document.getElementById('clickSound');
+      var gameOverSound = document.getElementById('gameOverSound');
+
       // Menu and game elements
       let menuToggle = document.querySelector(".menuToggle");
       let menu = document.querySelector(".menu");
-      let homeIcon = document.getElementById('homeIcon');
       let gameIcon = document.getElementById('gameIcon');
       let gameContainer = document.getElementById('gameContainer');
       let closeGameButton = document.getElementById('closeGame');
-      let gameButton = document.getElementById('gameButton');
+      let target = document.getElementById('target');
+      let timerDisplay = document.getElementById('timer');
       let scoreDisplay = document.getElementById('score');
+      let gameOverScreen = document.getElementById('gameOver');
+      let finalScoreDisplay = document.getElementById('finalScore');
+      let restartButton = document.getElementById('restartButton');
 
-     // Toggle menu
-  function toggleMenu() {
-    menu.classList.toggle("active");
-    toggleSound.currentTime = 0;
-    toggleSound.play();
-    if (menu.classList.contains("active")) {
-      openSound.currentTime = 0;
-      openSound.play();
-    }
-  }
+      // Variáveis do jogo
+      let score = 0;
+      let timeLeft = 30;
+      let gameActive = false;
 
-  // Handle menu toggle button click
-  menuToggle.onclick = toggleMenu;
+      // Função para mover o alvo aleatoriamente
+      function moveTarget() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        target.style.left = `${x}px`;
+        target.style.top = `${y}px`;
+      }
 
-  // Handle settings icon click
-  homeIcon.onclick = function() {
-    if (menu.classList.contains("active")) {
-      toggleMenu(); // Close menu when settings icon is clicked
-    }
-  };
-      
+      // Função para iniciar o jogo
+      function startGame() {
+        score = 0;
+        timeLeft = 30;
+        gameActive = true;
+        scoreDisplay.textContent = `Pontos: ${score}`;
+        timerDisplay.textContent = `Tempo restante: ${timeLeft}s`;
+        gameOverScreen.style.display = 'none';
+        target.style.display = 'block';
+        moveTarget();
+        countdown();
+      }
+
+      // Contagem regressiva
+      function countdown() {
+        const timer = setInterval(() => {
+          timeLeft--;
+          timerDisplay.textContent = `Tempo restante: ${timeLeft}s`;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            endGame();
+          }
+        }, 1000);
+      }
+
+      // Função para finalizar o jogo
+      function endGame() {
+        gameActive = false;
+        target.style.display = 'none';
+        gameOverScreen.style.display = 'block';
+        finalScoreDisplay.textContent = score;
+        gameOverSound.play();
+      }
+
+      // Evento de clique no alvo
+      target.addEventListener('click', () => {
+        if (gameActive) {
+          score++;
+          scoreDisplay.textContent = `Pontos: ${score}`;
+          clickSound.currentTime = 0;
+          clickSound.play();
+          moveTarget();
+        }
+      });
+
+      // Reiniciar o jogo
+      restartButton.addEventListener('click', startGame);
+
+      // Fechar o jogo
+      closeGameButton.addEventListener('click', () => {
+        gameContainer.style.display = 'none';
+        menu.style.display = 'flex';
+      });
+
+      // Abrir o jogo ao clicar no ícone do game
+      gameIcon.addEventListener('click', () => {
+        menu.style.display = 'none';
+        gameContainer.style.display = 'flex';
+        startGame();
+      });
+
       // Hover sound effect
       $("a").mouseenter(function() {
         hoverSound.currentTime = 0;
         hoverSound.play();
-      });
-      // Open game
-      gameIcon.addEventListener('click', () => {
-        menu.style.display = 'none'; // Hide menu
-        gameContainer.style.display = 'flex'; // Show game
-      });
-      // Close game
-      closeGameButton.addEventListener('click', () => {
-        gameContainer.style.display = 'none'; // Hide game
-        menu.style.display = 'flex'; // Show menu
-      });
-      
-      // Game variables
-      let score = 0;
-      // Update button's position randomly
-      function updateButtonPosition() {
-        const buttonWidth = gameButton.offsetWidth;
-        const buttonHeight = gameButton.offsetHeight;
-        const containerWidth = gameContainer.clientWidth;
-        const containerHeight = gameContainer.clientHeight;
-        const x = Math.random() * (containerWidth - buttonWidth);
-        const y = Math.random() * (containerHeight - buttonHeight);
-        gameButton.style.position = 'absolute';
-        gameButton.style.left = `${x}px`;
-        gameButton.style.top = `${y}px`;
-      }
-      // Handle button clicks
-      gameButton.addEventListener('click', () => {
-        score++;
-        scoreDisplay.textContent = score;
-        updateButtonPosition();
       });
     });
   </script>
@@ -181,6 +263,5 @@
   <!-- Ionicons for menu icons -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 </body>
 </html>

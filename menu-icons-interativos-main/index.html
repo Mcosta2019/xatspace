@@ -387,23 +387,6 @@
     </li>
   </ul>
 
-  <!-- Painel de Configurações -->
-  <div id="settingsPanel">
-    <div id="settingsHeader">Configurações</div>
-    <div class="settingsOption">
-      <label for="theme">Tema:</label>
-      <select id="theme">
-        <option value="dark">Escuro</option>
-        <option value="light">Claro</option>
-      </select>
-    </div>
-    <div class="settingsOption">
-      <label for="volume">Volume:</label>
-      <input type="range" id="volume" min="0" max="1" step="0.1" value="1" />
-    </div>
-    <button id="resetScore">Redefinir Pontuação</button>
-  </div>
-  
   <!-- Game container -->
   <div id="gameContainer">
     <div id="game">
@@ -496,18 +479,6 @@
       let timerDisplay = document.getElementById('timer');
       let scoreDisplay = document.getElementById('score');
 
-      // Painel de configurações
-      let settingsPanel = document.getElementById('settingsPanel');
-      let themeSelect = document.getElementById('theme');
-      let volumeSlider = document.getElementById('volume');
-      let resetScoreButton = document.getElementById('resetScore');
-
-      // Chatframe elements
-      let chatFrame = document.getElementById('chatFrame');
-      let chatMessages = document.getElementById('chatMessages');
-      let chatInput = document.getElementById('chatInput');
-      let sendButton = document.getElementById('sendButton');
-
       // Variáveis do jogo
       let score = 0;
       let timeLeft = 30;
@@ -527,72 +498,6 @@
 
       // Abrir/fechar o menu ao clicar no botão
       menuToggle.onclick = toggleMenu;
-
-      // Abrir o painel de configurações ao clicar no ícone de configurações
-      settingsIcon.onclick = function() {
-        settingsPanel.style.display = 'block';
-      };
-
-      // Fechar o painel de configurações ao clicar fora dele
-      document.addEventListener('click', (event) => {
-        if (!settingsPanel.contains(event.target) && !settingsIcon.contains(event.target)) {
-          settingsPanel.style.display = 'none';
-        }
-      });
-
-      // Alterar tema
-      themeSelect.addEventListener('change', () => {
-        const theme = themeSelect.value;
-        document.body.className = theme;
-      });
-
-      // Ajustar volume dos efeitos sonoros
-      volumeSlider.addEventListener('input', () => {
-        const volume = volumeSlider.value;
-        toggleSound.volume = volume;
-        openSound.volume = volume;
-        hoverSound.volume = volume;
-        clickSound.volume = volume;
-        gameOverSound.volume = volume;
-      });
-
-      // Redefinir pontuação
-      resetScoreButton.addEventListener('click', () => {
-        score = 0;
-        scoreDisplay.textContent = `Pontos: ${score}`;
-        alert('Pontuação redefinida!');
-      });
-
-      // Abrir o chatframe ao clicar no ícone de casa
-      homeIcon.onclick = function() {
-        chatFrame.style.display = 'block';
-      };
-
-      // Fechar o chatframe ao clicar fora dele
-      document.addEventListener('click', (event) => {
-        if (!chatFrame.contains(event.target) && !homeIcon.contains(event.target)) {
-          chatFrame.style.display = 'none';
-        }
-      });
-
-      // Enviar mensagem no chat
-      sendButton.addEventListener('click', () => {
-        const message = chatInput.value.trim();
-        if (message) {
-          const messageElement = document.createElement('div');
-          messageElement.textContent = `Você: ${message}`;
-          chatMessages.appendChild(messageElement);
-          chatInput.value = '';
-          chatMessages.scrollTop = chatMessages.scrollHeight; // Rolagem automática
-        }
-      });
-
-      // Enviar mensagem ao pressionar Enter
-      chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          sendButton.click();
-        }
-      });
 
       // Hover sound effect
       $("a").mouseenter(function() {
